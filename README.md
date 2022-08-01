@@ -58,5 +58,3 @@ Dictionary Search is Open Source and available under the [MIT](https://github.co
 # Contributions
 
 Contributions are very welcome. See [CONTRIBUTING.md](https://github.com/cr0hn/python-dynamic-plugins/blob/main/CONTRIBUTING.md) or skim existing tickets to see where you could help out.
-
-
