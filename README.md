@@ -28,14 +28,14 @@ This main idea of the project is to be able to create a plugin system which is e
 
 For this example we'll use the demo package ```demo_module``` that you can find in the ```demo_plugins``` folder.
 
-**Installing the plugin**
+**Installing the demo plugin**
 
 ```bash
 > cd demo_plugins/demo_module
 > pip install . -U
 ```
 
-**Load the function ```hello_world``` from the plugin:
+**Load the function ```hello_world``` from the plugin**:
 
 ```python
 

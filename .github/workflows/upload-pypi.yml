@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - databases_watcher/**
+      - dynamic_plugins/**
       - VERSION
       - setup*
 
