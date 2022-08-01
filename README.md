@@ -2,7 +2,7 @@
 
 ![License](https://img.shields.io/badge/License-Apache2-SUCCESS)
 ![Pypi](https://img.shields.io/pypi/v/dynamic-plugins)
-![Python Versions](https://img.shields.io/badge/Python-3.8%20%7C%203.9%20%7C%203.10-blue)
+![Python Versions](https://img.shields.io/badge/Python-3.10%20%7C%203.11-blue)
 
 In a nutshell ``Python Dynamic plugins`` is a small library for manage Python plugins dynamically.
 
