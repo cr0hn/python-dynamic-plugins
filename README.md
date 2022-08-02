@@ -1,6 +1,6 @@
 # Python Dynamic Plugins
 
-![License](https://img.shields.io/badge/License-Apache2-SUCCESS)
+![License](https://img.shields.io/pypi/l/dynamic-plugins)
 ![Pypi](https://img.shields.io/pypi/v/dynamic-plugins)
 ![Python Versions](https://img.shields.io/badge/Python-3.10%20%7C%203.11-blue)
 

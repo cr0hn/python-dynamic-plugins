@@ -97,9 +97,8 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
             try:
                 with open(os.path.join(path, "RECORD"), "r") as f:
                     for line in f.readlines():
-                        if "info/RECORD" in line:
-                            # format: package_name-1.0.1.dist-info/RECORD,,
-                            module_name = line[:line.find(package_version) - 1]
+                        if line.count("/") == 1 and "/__init__.py" in line:
+                            module_name = line.split("/")[0]
                             break
 
             except FileNotFoundError as e:
