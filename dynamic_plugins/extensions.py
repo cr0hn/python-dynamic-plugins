@@ -1,5 +1,6 @@
 import os
 import importlib
+import sysconfig
 
 from types import ModuleType
 from typing import Tuple, List, Iterable, Callable
@@ -45,13 +46,33 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
             continue
 
         # Find entrypoint module
-        try:
-            with open(os.path.join(dist_info.egg_info, "RECORD"),
-                      "r") as f:
-                module_name, _ = f.readline().split("/", maxsplit=1)
-        except Exception as e:
-            print(e)
-            continue
+        emtry_module_paths = (
+            dist_info.egg_info,
+            os.path.join(
+                sysconfig.get_paths()["platlib"],
+                f"{installed_name.replace('-', '_')}-{package_version}.dist-info"
+            )
+        )
+
+        for path in emtry_module_paths:
+
+            try:
+                with open(os.path.join(path, "RECORD"), "r") as f:
+                    for line in f.readlines():
+                        if "info/RECORD" in line:
+                            # format: package_name-1.0.1.dist-info/RECORD,,
+                            module_name = line[:line.find(package_version) - 1]
+                            break
+
+            except FileNotFoundError as e:
+                print(e)
+
+        else:
+            print(f"Can't loat module: {installed_name}")
+
+        # Checks if version is in name:
+        # if package_version in module_name:
+        #     module_name = module_name.replace(f"-{package_version}", "")
 
         if not module_name:
             continue
