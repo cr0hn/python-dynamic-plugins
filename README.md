@@ -68,10 +68,11 @@ In this example we'll load the ```hello_world()``` function dynamically from the
 from dynamic_plugins import get_extensions
 
 def main():
-    functions = get_extensions("demo-", sub_package="setup",symbols="hello_world")
-
-    for fn in functions:
-        fn()
+    for module, symbols in get_extensions("demo-", sub_package="setup",symbols="hello_world").items():
+        print(module)
+        
+        for fn in symbols:
+            print(fn())
 
 if __name__ == '__main__':
     main()

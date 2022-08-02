@@ -3,11 +3,11 @@ import importlib
 import sysconfig
 
 from types import ModuleType
-from typing import Tuple, List, Iterable, Callable
+from typing import Tuple, List, Dict
 
 from .dependencies import list_installed_packages
 
-def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, symbols: List[str] | str = None) -> Iterable[Callable]:
+def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, symbols: List[str] | str = None) -> Dict[str, dict]:
     """
     This function dynamically loads all installed extensions and returns the functions and variables listed in symbols.
 
@@ -19,6 +19,9 @@ def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, sy
     if type(symbols) is str:
         symbols = [symbols]
 
+
+    ret = {}
+
     for module_name, module in get_packages(extensions_prefix):
 
         if sub_package:
@@ -26,9 +29,15 @@ def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, sy
         else:
             new_module = module
 
+        ret_symbols = {}
+
         for symbol in symbols:
-            if hasattr(new_module, symbol):
-                yield getattr(new_module, symbol)
+            ret_symbols[symbol] = getattr(new_module, symbol, None)
+
+        ret[module_name] = ret_symbols
+
+    return ret
+
 
 def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
     """
