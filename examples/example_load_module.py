@@ -1,7 +1,7 @@
-from dynamic_plugins import get_modules
+from dynamic_plugins import get_extensions
 
 def main():
-    functions = get_modules("demo-", entrypoint_module="setup", entrypoint_function="hello_world")
+    functions = get_extensions("demo-", sub_package="setup",symbols="hello_world")
 
     for fn in functions:
         fn()
