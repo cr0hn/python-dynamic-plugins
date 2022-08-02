@@ -103,7 +103,7 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
                             break
 
             except FileNotFoundError as e:
-                print(e)
+                ...
 
         else:
             print(f"Can't loat module: {installed_name}")
