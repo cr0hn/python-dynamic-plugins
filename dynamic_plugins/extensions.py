@@ -8,7 +8,7 @@ from typing import Tuple, List, Dict
 from .exceptions import DynamicPluginException
 from .dependencies import list_installed_packages
 
-def get_symbols_from_package(package: str, symbols: List[str] | str = None) -> Dict[str, dict] | DynamicPluginException:
+def get_symbols_from_package(package: str, symbols: List[str] | str = None) -> Tuple[object, Dict[str, dict]] | DynamicPluginException:
     """
     This function dynamically loads all installed extensions and returns the functions and variables listed in symbols.
 
@@ -33,7 +33,7 @@ def get_symbols_from_package(package: str, symbols: List[str] | str = None) -> D
     for symbol in symbols:
         ret_symbols[symbol] = getattr(new_module, symbol, None)
 
-    return ret_symbols
+    return new_module, ret_symbols
 
 
 def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, symbols: List[str] | str = None) -> Dict[str, dict]:
@@ -43,10 +43,10 @@ def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, sy
     :return: list of functions and variables
     """
 
-    symbols = symbols or []
+    symbols_list = symbols or []
 
-    if type(symbols) is str:
-        symbols = [symbols]
+    if type(symbols_list) is str:
+        symbols_list = [symbols_list]
 
 
     ret = {}
@@ -58,7 +58,12 @@ def get_extensions(extensions_prefix: str = None, *, sub_package: str = None, sy
         else:
             new_module = module
 
-        ret[module_name] = get_symbols_from_package(new_module, symbols)
+        got_module, got_symbols = get_symbols_from_package(new_module, symbols_list)
+
+        ret[module_name] = dict(
+            module_object=got_module,
+            symbols=got_symbols
+        )
 
     return ret
 
