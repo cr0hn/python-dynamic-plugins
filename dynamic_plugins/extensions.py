@@ -104,12 +104,6 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
             except FileNotFoundError as e:
                 ...
 
-        else:
-            print(f"Can't loat module: {installed_name}")
-
-        # Checks if version is in name:
-        # if package_version in module_name:
-        #     module_name = module_name.replace(f"-{package_version}", "")
 
         if not module_name:
             continue
