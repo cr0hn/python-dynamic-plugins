@@ -104,6 +104,8 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
             except FileNotFoundError as e:
                 ...
 
+        else:
+            module_name = None
 
         if not module_name:
             continue
