@@ -92,7 +92,12 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
             )
         )
 
+        module_name = None
+
         for path in emtry_module_paths:
+
+            if module_name is not None:
+                break
 
             try:
                 with open(os.path.join(path, "RECORD"), "r") as f:
@@ -101,11 +106,9 @@ def get_packages(module_prefix: str = None) -> List[Tuple[str, ModuleType]]:
                             module_name = line.split("/")[0]
                             break
 
-            except FileNotFoundError as e:
+            except FileNotFoundError:
                 ...
 
-        else:
-            module_name = None
 
         if not module_name:
             continue
